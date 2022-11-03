@@ -10,16 +10,25 @@ all_sales <- list.files(path = "./sales", pattern = ".csv")
 # use a loop to load all datasets 
 i <- 1
 for (salesdata in all_sales){
-  datafile <- read_csv(paste0("./sales/", salesdata))
-  assign(paste0("dataset_", i), datafile)
+  dataset_1 <- read_csv(paste0("./sales/", salesdata))
+  assign(paste0("dataset_", i), dataset_1)
   i <- i + 1
 }
 
+?cols
+
+cols(day = col_double(), month = col_double(), year = col_double(), pizza = col_factor(), number = col_double())
 ############## JOIN ###############
 # Use a tidyverse join to join all the data together into one file
 # called sales_data, then run the rest of the code
+?full_join
 
+#change character to factor for pizza variable 
 
+for (salesdata in all_sales){
+  sales_data <- all_sales %>%
+  full_join(all_sales, by = c("day", "month", "year","pizza", "number"))
+}
 
 ########################################
 
